@@ -16,7 +16,7 @@ authors = [{ name = "X0D4N" }]
 siteseal = "siteseal.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/CYPHERLYNX/siteseal"
+Homepage = "https://github.com/X0D4N/driftcanary"
 
 [tool.setuptools.packages.find]
 where = ["."]
