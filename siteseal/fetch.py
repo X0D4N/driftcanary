@@ -69,7 +69,7 @@ def _is_public_host(host, allow_private):
     try:
         infos = socket.getaddrinfo(host, None)
     except socket.gaierror as exc:
-        raise FetchError("DNS resolution failed for %s: %s" % (host, exc))
+        raise FetchError("DNS resolution failed for %s: %s" % (host, exc)) from exc
     for info in infos:
         ip = ipaddress.ip_address(info[4][0])
         if ip.is_multicast or any(ip in net for net in _BLOCKED_NETS):
@@ -140,11 +140,11 @@ class PoliteFetcher:
                     loc = (exc.headers or {}).get("Location")
                     self.request_count += 1
                     if not loc:
-                        raise FetchError("redirect without Location from %s" % current)
+                        raise FetchError("redirect without Location from %s" % current) from exc
                     current = urllib.parse.urljoin(current, loc)
                     continue
                 if exc.code == 429:
-                    raise RateLimited("server returned 429 for %s" % current)
+                    raise RateLimited("server returned 429 for %s" % current) from exc
                 # Non-429 HTTP errors are still evidence (e.g. 403 on a probe).
                 headers = {k.lower(): v for k, v in (exc.headers or {}).items()}
                 self.request_count += 1
@@ -155,9 +155,9 @@ class PoliteFetcher:
                 return Response(current, exc.code, headers,
                                 body[: self.max_bytes], len(body) > self.max_bytes)
             except urllib.error.URLError as exc:
-                raise FetchError("%s: %s" % (current, exc.reason))
+                raise FetchError("%s: %s" % (current, exc.reason)) from exc
             except (socket.timeout, TimeoutError):
-                raise FetchError("timed out fetching %s" % current)
+                raise FetchError("timed out fetching %s" % current) from None
             except OSError as exc:
-                raise FetchError("%s: %s" % (current, exc))
+                raise FetchError("%s: %s" % (current, exc)) from exc
         raise FetchError("too many redirects fetching %s" % url)
