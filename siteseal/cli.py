@@ -21,7 +21,7 @@ def _normalize_url(raw):
     try:
         parsed = urllib.parse.urlparse(raw)
     except ValueError:
-        raise ValueError("not a valid http(s) URL: %r" % raw)
+        raise ValueError("not a valid http(s) URL: %r" % raw) from None
     if parsed.scheme not in ("http", "https") or not parsed.hostname:
         raise ValueError("not a valid http(s) URL: %r" % raw)
     return raw
