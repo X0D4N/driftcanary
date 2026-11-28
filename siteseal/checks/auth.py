@@ -14,7 +14,6 @@ Missing surface -> informational. Never alarmist.
 
 import re
 import urllib.parse
-from html.parser import HTMLParser
 
 from ..fetch import FetchError, PoliteFetcher, RateLimited
 from ..model import Finding

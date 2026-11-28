@@ -11,7 +11,6 @@ import html as htmlmod
 import json
 import sys
 
-from . import score as scoring
 
 _SEV_COLOR = {
     "PASS": "\033[32m", "FAIL": "\033[31m", "WARN": "\033[33m",

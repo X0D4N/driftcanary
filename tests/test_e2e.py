@@ -12,7 +12,6 @@ import urllib.parse
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
 from siteseal import cli
-from siteseal.fetch import PoliteFetcher
 
 FAKE_KEY = "sk-proj-TESTFIXTUREabcdefghij1234"
 

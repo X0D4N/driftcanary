@@ -1,6 +1,5 @@
 """Test helpers: a fake fetcher standing in for PoliteFetcher."""
 
-from siteseal.fetch import RateLimited
 
 
 class FakeResponse:
